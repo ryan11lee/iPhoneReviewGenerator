@@ -23,6 +23,12 @@ def get_text(url):
 url = "https://www.theverge.com/22684421/apple-iphone-13-mini-review"
 url2 = "https://www.theverge.com/21522988/iphone-12-review"
 url3 = "https://www.theverge.com/2019/9/17/20869456/apple-iphone-11-review-camera-price-budget-battery-screen-size-features"
+url4 = "https://www.theverge.com/2018/9/18/17871816/apple-iphone-xs-max-review-camera-processor-battery-price"
+url5 = "https://www.theverge.com/2017/10/31/16579748/apple-iphone-x-review"
+url6 = "https://www.theverge.com/2017/9/19/16323570/apple-new-iphone-8-review-plus-2017"
+
+
+reviewList = [url, url2, url3, url4, url5, url6]
 
 try:
     os.mkdir("text")
@@ -31,5 +37,5 @@ except FileExistsError:
     
 os.chdir("text")
 
-for u in [url,url2,url3]:
+for u in reviewList:
     get_text(u)
