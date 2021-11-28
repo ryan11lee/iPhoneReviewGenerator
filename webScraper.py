@@ -44,7 +44,6 @@ for url in reviewList:
     
 filenames = glob.glob('*.txt')
 
-print(filenames)
 
 with open("../output_file.txt", "w") as outfile:
     for f in filenames:
