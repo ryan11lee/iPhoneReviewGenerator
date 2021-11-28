@@ -38,8 +38,9 @@ except FileExistsError:
     
 os.chdir("text")
 
-for u in reviewList:
-    get_text(u)
+for url in reviewList:
+    get_text(url)
+
     
 filenames = glob.glob('*.txt')
 
