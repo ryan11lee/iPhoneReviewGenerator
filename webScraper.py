@@ -1,6 +1,7 @@
 #%%
 import requests
 import os
+import glob
 from bs4 import BeautifulSoup
 
 
@@ -12,10 +13,10 @@ def get_text(url):
     justText = []
     p = body.find_all("p")
     for tag in p:
-        print(tag.get_text())
+        #print(tag.get_text())
         justText.append(tag.get_text().replace("\t", "").replace("\r", "").replace("\n", ""))
 
-    with open("%s" %url.split("/").pop() + ".txt", "w+" ) as file:
+    with open("%s" %url.split("/").pop() + ".txt", "w+", encoding='utf-8') as file:
         for item in justText:
             file.write(item)
 
@@ -39,3 +40,14 @@ os.chdir("text")
 
 for u in reviewList:
     get_text(u)
+    
+filenames = glob.glob('*.txt')
+
+print(filenames)
+
+with open("../output_file.txt", "w") as outfile:
+    for f in filenames:
+        print(f)
+        with open(f) as infile:
+            contents = infile.read()
+            outfile.write(contents)
