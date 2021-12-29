@@ -8,15 +8,17 @@ from bs4 import BeautifulSoup
 def get_text(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
-    body = soup.find("div",{"class":"c-entry-content"})
+    body = soup.find("div", {"class": "c-entry-content"})
 
     justText = []
     p = body.find_all("p")
     for tag in p:
-        #print(tag.get_text())
-        justText.append(tag.get_text().replace("\t", "").replace("\r", "").replace("\n", ""))
+        # print(tag.get_text())
+        justText.append(
+            tag.get_text().replace("\t", "").replace("\r", "").replace("\n", "")
+        )
 
-    with open("%s" %url.split("/").pop() + ".txt", "w+", encoding='utf-8') as file:
+    with open("%s" % url.split("/").pop() + ".txt", "w+", encoding="utf-8") as file:
         for item in justText:
             file.write(item)
 
@@ -35,17 +37,17 @@ try:
     os.mkdir("text")
 except FileExistsError:
     pass
-    
+
 os.chdir("text")
 
 for url in reviewList:
     get_text(url)
 
-    
-filenames = glob.glob('*.txt')
+
+filenames = glob.glob("*.txt")
 
 
-with open("../output_file.txt", "w") as outfile:
+with open("../corpus.txt", "w") as outfile:
     for f in filenames:
         print(f)
         with open(f) as infile:
