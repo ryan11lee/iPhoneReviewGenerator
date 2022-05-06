@@ -28,7 +28,7 @@ def tokenize_words(input):
 processed_corpus =  tokenize_words(corpus)
 
 chars = sorted(list(set(processed_corpus)))
-char_to_num = dict((c, i) for i, c in enumerate(chars))
+char_to_num = {c: i for i, c in enumerate(chars)}
 
 input_len = len(processed_corpus)
 vocab_len = len(chars)

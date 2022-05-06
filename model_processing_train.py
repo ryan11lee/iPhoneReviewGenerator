@@ -29,7 +29,7 @@ processed_inputs = tokenize_words(file)
 #%%
 
 chars = sorted(list(set(processed_inputs)))
-char_to_num = dict((c, i) for i, c in enumerate(chars))
+char_to_num = {c: i for i, c in enumerate(chars)}
 # %%
 input_len = len(processed_inputs)
 vocab_len = len(chars)
@@ -42,7 +42,7 @@ y_data = []
 # %%
 # loop through inputs, start at the beginning and go until we hit
 # the final character we can create a sequence out of
-for i in range(0, input_len - seq_length, 1):
+for i in range(input_len - seq_length):
     # Define input and output sequences
     # Input is the current character plus desired sequence length
     in_seq = processed_inputs[i:i + seq_length]
@@ -93,7 +93,7 @@ filename = "model_weights_saved.hdf5"
 model.load_weights(filename)
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 # %%
-num_to_char = dict((i, c) for i, c in enumerate(chars))
+num_to_char = dict(enumerate(chars))
 
 # %%
 start = numpy.random.randint(0, len(x_data) - 1)
@@ -101,7 +101,7 @@ pattern = x_data[start]
 print("Random Seed:")
 print("\"", ''.join([num_to_char[value] for value in pattern]), "\"")
 # %%
-for i in range(200):
+for _ in range(200):
     x = numpy.reshape(pattern, (1, len(pattern), 1))
     x = x / float(vocab_len)
     prediction = model.predict(x, verbose=0)
@@ -111,6 +111,6 @@ for i in range(200):
     sys.stdout.write(result)
 
     pattern.append(index)
-    pattern = pattern[1:len(pattern)]
+    pattern = pattern[1:]
 
 # %%
