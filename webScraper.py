@@ -10,15 +10,13 @@ def get_text(url):
     soup = BeautifulSoup(page.content, "html.parser")
     body = soup.find("div", {"class": "c-entry-content"})
 
-    justText = []
     p = body.find_all("p")
-    for tag in p:
-        # print(tag.get_text())
-        justText.append(
-            tag.get_text().replace("\t", "").replace("\r", "").replace("\n", "")
-        )
+    justText = [
+        tag.get_text().replace("\t", "").replace("\r", "").replace("\n", "")
+        for tag in p
+    ]
 
-    with open("%s" % url.split("/").pop() + ".txt", "w+", encoding="utf-8") as file:
+    with open(f'{url.split("/").pop()}' + ".txt", "w+", encoding="utf-8") as file:
         for item in justText:
             file.write(item)
 
